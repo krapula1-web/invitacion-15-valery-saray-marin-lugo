@@ -1,0 +1,1 @@
+Carpeta reservada para imágenes, música, iconos y demás recursos de la invitación.
