@@ -82,7 +82,7 @@ export default function Home() {
 
       <section className="hero" id="inicio">
         <Petals />
-        <div className="heroOrnament ornamentA" /><div className="heroOrnament ornamentB" />
+        <div className="heroOrnament ornamentA" /><div className="heroOrnament ornamentB" /><div className="heroHalo" /><div className="heroFrame" aria-hidden="true"><span /><span /><span /><span /></div>
         <motion.div className="heroContent" initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1.1, delay: opened ? 0.15 : 0 }}>
           <p className="eyebrow">Una noche para recordar</p><p className="intro">Mis</p><h1>15</h1><p className="years">años</p>
           <div className="nameRule"><span>✦</span></div><p className="name">Valery Saray</p><p className="surname">Marín Lugo</p>
@@ -153,9 +153,9 @@ export default function Home() {
 
       <section className="gallery section" id="galeria">
         <Reveal><div className="sectionHeading"><span>Recuerdos</span><h2>Galería</h2></div>
-        <div className="galleryGrid">
-          <div className="photo photo1"><Camera size={22}/><span>Tu foto aquí</span></div><div className="photo photo2"><Camera size={22}/><span>Tu foto aquí</span></div>
-          <div className="photo photo3"><Camera size={22}/><span>Tu foto aquí</span></div><div className="photo photo4"><Camera size={22}/><span>Tu foto aquí</span></div>
+        <div className="galleryIntro"><span>Momentos que merecen quedarse para siempre</span></div><div className="galleryGrid">
+          <motion.div className="photo photo1" whileHover={{ scale: 1.015, y: -5 }}><div className="photoOverlay"><Camera size={22}/><span>Tu foto aquí</span></div></motion.div><motion.div className="photo photo2" whileHover={{ scale: 1.015, y: -5 }}><div className="photoOverlay"><Camera size={22}/><span>Tu foto aquí</span></div></motion.div>
+          <motion.div className="photo photo3" whileHover={{ scale: 1.015, y: -5 }}><div className="photoOverlay"><Camera size={22}/><span>Tu foto aquí</span></div></motion.div><motion.div className="photo photo4" whileHover={{ scale: 1.015, y: -5 }}><div className="photoOverlay"><Camera size={22}/><span>Tu foto aquí</span></div></motion.div>
         </div></Reveal>
       </section>
 
