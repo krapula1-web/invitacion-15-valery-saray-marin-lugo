@@ -84,7 +84,11 @@ export default function Home() {
   const [memories, setMemories] = useState<string[]>([]);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const { scrollYProgress } = useScroll();
-  const progress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });\n\n  function scrollToTop() {\n    window.scrollTo({ top: 0, behavior: "smooth" });\n  }
+  const progress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
 
   function shareInvitation() {
     const shareData = {
@@ -402,7 +406,20 @@ export default function Home() {
         </Reveal>
       </section>
 
-      <motion.button\n        className="floatingTopButton"\n        type="button"\n        onClick={scrollToTop}\n        aria-label="Subir al inicio"\n        title="Subir al inicio"\n        initial={{ opacity: 0, scale: 0.75, y: 12 }}\n        animate={{ opacity: 1, scale: 1, y: 0 }}\n        transition={{ duration: 0.35, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}\n      >\n        <ArrowUp size={17} strokeWidth={2} /><span>Subir</span>\n      </motion.button>\n\n      <footer><Sparkles size={15}/><span>{invitation.title}</span><Sparkles size={15}/></footer>
+      <motion.button
+        className="floatingTopButton"
+        type="button"
+        onClick={scrollToTop}
+        aria-label="Subir al inicio"
+        title="Subir al inicio"
+        initial={{ opacity: 0, scale: 0.75, y: 12 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.35, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <ArrowUp size={17} strokeWidth={2} /><span>Subir</span>
+      </motion.button>
+
+      <footer><Sparkles size={15}/><span>{invitation.title}</span><Sparkles size={15}/></footer>
     </main>
   );
 }
