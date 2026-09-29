@@ -402,7 +402,7 @@ export default function Home() {
         </Reveal>
       </section>
 
-      <motion.button\n        className="floatingTopButton"\n        type="button"\n        onClick={scrollToTop}\n        aria-label="Volver al menú"\n        title="Volver al menú"\n        initial={{ opacity: 0, scale: 0.75, y: 12 }}\n        animate={{ opacity: 1, scale: 1, y: 0 }}\n        transition={{ duration: 0.35, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}\n      >\n        <ArrowUp size={17} strokeWidth={1.8} />\n      </motion.button>\n\n      <footer><Sparkles size={15}/><span>{invitation.title}</span><Sparkles size={15}/></footer>
+      <motion.button\n        className="floatingTopButton"\n        type="button"\n        onClick={scrollToTop}\n        aria-label="Subir al inicio"\n        title="Subir al inicio"\n        initial={{ opacity: 0, scale: 0.75, y: 12 }}\n        animate={{ opacity: 1, scale: 1, y: 0 }}\n        transition={{ duration: 0.35, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}\n      >\n        <ArrowUp size={17} strokeWidth={2} /><span>Subir</span>\n      </motion.button>\n\n      <footer><Sparkles size={15}/><span>{invitation.title}</span><Sparkles size={15}/></footer>
     </main>
   );
 }
