@@ -257,3 +257,44 @@ a{ -webkit-tap-highlight-color:transparent }
 @media (hover:none){
   .detailCard:hover,.photo:hover,.openButton:hover,.confirmButton:hover,.musicButton:hover,.outlineButton:hover{transform:none;box-shadow:none}
 }
+
+
+/* floating back-to-top */
+.floatingTopButton{
+  position:fixed;
+  right:clamp(14px,3vw,28px);
+  bottom:clamp(16px,3vw,28px);
+  z-index:95;
+  width:44px;
+  height:44px;
+  border:1px solid rgba(118,83,130,.18);
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  color:var(--deep);
+  background:rgba(255,250,248,.72);
+  box-shadow:0 10px 30px rgba(44,31,51,.12);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  transition:transform .25s ease,background .25s ease,box-shadow .25s ease;
+}
+.floatingTopButton:hover{
+  transform:translateY(-3px);
+  background:rgba(255,255,255,.94);
+  box-shadow:0 14px 34px rgba(44,31,51,.17);
+}
+.floatingTopButton:focus-visible{
+  outline:2px solid #9b789f;
+  outline-offset:3px;
+}
+@media(max-width:700px){
+  .floatingTopButton{
+    width:40px;
+    height:40px;
+    right:14px;
+    bottom:14px;
+  }
+}
+@media(hover:none){
+  .floatingTopButton:hover{transform:none}
+}
