@@ -8,8 +8,18 @@ export const viewport: Viewport = {\n  width: "device-width",\n  initialScale: 1
   openGraph: {
     title: "Valery Saray | Mis 15 años",
     description: "Una noche para recordar.",
-    type: "website"
-  }
+    type: "website",
+    siteName: "Valery Saray · Mis 15 años"
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Valery Saray | Mis 15 años",
+    description: "Una noche para recordar."
+  },
+  icons: {
+    icon: "/invitacion-15-valery-saray-marin-lugo/icon.svg"
+  },
+  robots: { index: true, follow: true }
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
