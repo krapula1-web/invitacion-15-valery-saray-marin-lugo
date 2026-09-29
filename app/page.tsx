@@ -1,15 +1,16 @@
 "use client";
 
 import type { FormEvent, ReactNode } from "react";
+import invitation from "./invitation-data";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
 import {
   CalendarDays, Camera, Check, CheckCircle2, ChevronDown, Clock3, Crown, Flower2,
   Gift, Heart, MapPin, MessageCircle, Music2, Navigation, Quote, Shirt, Sparkles,
-  Star, Users, WandSparkles, ArrowUp, Share2, Copy
+  Star, Users, WandSparkles, ArrowUp, Share2
 } from "lucide-react";
 
-const eventDate: string | null = null;
+const eventDate = invitation.eventDate;
 
 const sections = [
   { id: "historia", label: "Historia" },
@@ -72,12 +73,7 @@ const moments = [
   ["05", "Fiesta", "La noche continúa. ¡Ahora sí, a bailar!"],
 ];
 
-const gallery = [
-  ["01", "Un nuevo capítulo", "portraitA"],
-  ["02", "Sueños que florecen", "portraitB"],
-  ["03", "Momentos especiales", "portraitC"],
-  ["04", "La noche soñada", "portraitD"],
-];
+const gallery = invitation.gallery;
 
 export default function Home() {
   const [opened, setOpened] = useState(false);
@@ -86,8 +82,25 @@ export default function Home() {
   const [submitted, setSubmitted] = useState(false);
   const [memory, setMemory] = useState("");
   const [memories, setMemories] = useState<string[]>([]);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });\n\n  function scrollToTop() {\n    window.scrollTo({ top: 0, behavior: "smooth" });\n  }
+
+  function shareInvitation() {
+    const shareData = {
+      title: invitation.title,
+      text: invitation.shareText,
+      url: window.location.href,
+    };
+    if (navigator.share) {
+      navigator.share(shareData).catch(() => undefined);
+      return;
+    }
+    navigator.clipboard?.writeText(window.location.href).then(() => {
+      setShared(true);
+      window.setTimeout(() => setShared(false), 2200);
+    }).catch(() => undefined);
+  }
 
   function handleRSVP(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -156,7 +169,7 @@ export default function Home() {
           <div className="nameRule"><span>✦</span></div>
           <p className="name">Valery Saray</p>
           <p className="surname">Marín Lugo</p>
-          <p className="heroDate">Una historia, un sueño y una noche para celebrar.</p>
+          <p className="heroDate">{invitation.heroMessage}</p>
           <div className="heroActions">
             <a className="openButton" href="#historia"><Sparkles size={17} /> Descubrir la invitación</a>
             <button className="openButton secondaryAction" type="button" onClick={shareInvitation}>
@@ -204,9 +217,9 @@ export default function Home() {
         <Reveal>
           <p className="eyebrow">Comienza la cuenta regresiva</p>
           <h2>El gran día se acerca</h2>
-          <p className="mutedCopy">Una cuenta regresiva viva para acompañar la ilusión hasta el gran día.</p>
+          <p className="mutedCopy">{invitation.countdownMessage}</p>
           <Countdown />
-          <div className="countdownCaption"><span>PRÓXIMAMENTE</span><i>La fecha oficial activará el contador en tiempo real.</i></div>
+          <div className="countdownCaption"><span>{eventDate ? "FALTAN" : "PRÓXIMAMENTE"}</span><i>{eventDate ? invitation.countdownReady : invitation.countdownPending}</i></div>
           <div className="countdownFlourish"><span>✦</span><span>♡</span><span>✦</span></div>
         </Reveal>
       </section>
@@ -216,9 +229,9 @@ export default function Home() {
           <div className="sectionHeading"><span>Guarda este momento</span><h2>La celebración</h2></div>
           <p className="sectionLead">Todos los detalles de esta noche estarán reunidos aquí para que no te pierdas ningún instante.</p>
           <div className="details">
-            <article className="detailCard"><div className="iconBubble"><CalendarDays size={22}/></div><span>Fecha</span><strong>Próximamente</strong><small>Reserva la fecha</small></article>
-            <article className="detailCard"><div className="iconBubble"><Clock3 size={22}/></div><span>Hora</span><strong>Próximamente</strong><small>Te esperamos</small></article>
-            <article className="detailCard"><div className="iconBubble"><MapPin size={22}/></div><span>Lugar</span><strong>Próximamente</strong><small>Ubicación del evento</small></article>
+            <article className="detailCard"><div className="iconBubble"><CalendarDays size={22}/></div><span>Fecha</span><strong>{invitation.eventDateLabel}</strong><small>Reserva la fecha</small></article>
+            <article className="detailCard"><div className="iconBubble"><Clock3 size={22}/></div><span>Hora</span><strong>{invitation.eventTimeLabel}</strong><small>Te esperamos</small></article>
+            <article className="detailCard"><div className="iconBubble"><MapPin size={22}/></div><span>Lugar</span><strong>{invitation.venueName}</strong><small>Ubicación del evento</small></article>
           </div>
         </Reveal>
       </section>
@@ -262,15 +275,15 @@ export default function Home() {
           <div className="sectionHeading"><span>Recuerdos que comienzan aquí</span><h2>Galería</h2></div>
           <p className="sectionLead">Este espacio está preparado para convertir tus fotografías favoritas en parte de la experiencia.</p>
           <div className="galleryGrid">
-            {gallery.map(([number, caption, cls]) => (
-              <motion.article className={`photo ${cls}`} key={number} whileHover={{ y: -7 }} tabIndex={0}>
+            {gallery.map(([number, caption, cls], index) => (
+              <motion.button className={`photo ${cls}`} key={number} whileHover={{ y: -7 }} type="button" onClick={() => setLightboxIndex(index)} aria-label={`Abrir ${caption}`}>
                 <div className="photoGlow" />
                 <div className="photoFrame"><Camera size={20}/><small>FOTO {number}</small></div>
                 <div className="photoCaption"><span>{caption}</span><i>✦</i></div>
-              </motion.article>
+              </motion.button>
             ))}
           </div>
-          <div className="galleryNote"><WandSparkles size={16}/> Las fotografías reales podrán incorporarse cuando estén listas.</div>
+          <div className="galleryNote"><WandSparkles size={16}/> Toca una fotografía para abrir su vista destacada. Las imágenes reales se incorporarán en cuanto estén listas.</div>
         </Reveal>
       </section>
 
@@ -279,7 +292,7 @@ export default function Home() {
           <div className="sectionHeading"><span>Te esperamos</span><h2>¿Dónde será?</h2></div>
           <div className="mapCard">
             <div className="mapArt"><div className="mapGrid" /><MapPin size={42}/><span>Ubicación próximamente</span></div>
-            <div className="mapInfo"><p className="eyebrow">El lugar de la celebración</p><h3>Próximamente</h3><p>Aquí aparecerán el nombre del lugar, la dirección y un acceso directo al mapa.</p><button className="outlineButton" type="button"><Navigation size={16}/> Cómo llegar</button></div>
+            <div className="mapInfo"><p className="eyebrow">El lugar de la celebración</p><h3>{invitation.venueName}</h3><p>{invitation.venueDescription}</p><button className="outlineButton" type="button" disabled={!invitation.mapsUrl} onClick={() => invitation.mapsUrl && window.open(invitation.mapsUrl, "_blank", "noopener,noreferrer")}><Navigation size={16}/> {invitation.mapsUrl ? "Cómo llegar" : "Mapa próximamente"}</button></div>
           </div>
         </Reveal>
       </section>
@@ -290,7 +303,7 @@ export default function Home() {
           <p className="eyebrow">Código de vestuario</p>
           <h2>Una noche para vestir de gala</h2>
           <p className="sectionLead">El dress code definitivo aparecerá aquí. Queremos que todos disfruten la noche con elegancia y comodidad.</p>
-          <div className="dressBadge"><span>✦</span> ELEGANTE · PRÓXIMAMENTE <span>✦</span></div>
+          <div className="dressBadge"><span>✦</span> {invitation.dressCode} <span>✦</span></div>
         </Reveal>
       </section>
 
@@ -299,7 +312,7 @@ export default function Home() {
           <div className="vinyl"><div className="vinylCenter"><Heart size={18}/></div></div>
           <p className="eyebrow">La banda sonora de esta noche</p>
           <h2>Nuestra canción</h2>
-          <p className="sectionLead">La canción elegida acompañará esta invitación cuando tengamos el audio definitivo.</p>
+          <p className="sectionLead">{invitation.musicDescription}</p>
           <button className={`musicButton ${musicOn ? "playing" : ""}`} type="button" onClick={() => setMusicOn((v) => !v)}><Music2 size={17}/>{musicOn ? "Música activada" : "Activar música"}</button>
           <small className="featureNote">{musicOn ? "Reproductor listo para conectar el audio." : "La música se añadirá con la canción elegida."}</small>
         </Reveal>
@@ -350,13 +363,30 @@ export default function Home() {
         </Reveal>
       </section>
 
+      <AnimatePresence>
+        {lightboxIndex !== null && (
+          <motion.div className="lightbox" role="dialog" aria-modal="true" aria-label="Galería ampliada" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setLightboxIndex(null)}>
+            <motion.div className={`lightboxCard ${gallery[lightboxIndex][2]}`} initial={{ scale: .92, y: 20 }} animate={{ scale: 1, y: 0 }} exit={{ scale: .95, y: 10 }} onClick={(event) => event.stopPropagation()}>
+              <button className="lightboxClose" type="button" onClick={() => setLightboxIndex(null)} aria-label="Cerrar galería">×</button>
+              <div className="lightboxMark"><Camera size={24}/><span>FOTO {gallery[lightboxIndex][0]}</span></div>
+              <h3>{gallery[lightboxIndex][1]}</h3>
+              <p>Este espacio quedará listo para una fotografía real de Valery y su celebración.</p>
+              <div className="lightboxNav">
+                <button type="button" onClick={() => setLightboxIndex((lightboxIndex - 1 + gallery.length) % gallery.length)}>Anterior</button>
+                <button type="button" onClick={() => setLightboxIndex((lightboxIndex + 1) % gallery.length)}>Siguiente</button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       <section className="contact section">
         <Reveal>
           <MessageCircle size={25}/>
           <p className="eyebrow">¿Tienes alguna pregunta?</p>
           <h2>Estamos para ayudarte</h2>
-          <p className="sectionLead">Cuando tengamos el contacto definitivo, aquí habrá un botón directo a WhatsApp.</p>
-          <button className="outlineButton" type="button"><MessageCircle size={16}/> WhatsApp · Próximamente</button>
+          <p className="sectionLead">{invitation.whatsappNumber ? "Escríbenos directamente si tienes alguna pregunta sobre la celebración." : "Cuando tengamos el contacto definitivo, aquí habrá un botón directo a WhatsApp."}</p>
+          <button className="outlineButton" type="button" disabled={!invitation.whatsappNumber} onClick={() => invitation.whatsappNumber && window.open(`https://wa.me/${invitation.whatsappNumber}`, "_blank", "noopener,noreferrer")}><MessageCircle size={16}/> {invitation.whatsappNumber ? "Escribir por WhatsApp" : "WhatsApp · Próximamente"}</button>
         </Reveal>
       </section>
 
@@ -372,7 +402,7 @@ export default function Home() {
         </Reveal>
       </section>
 
-      <motion.button\n        className="floatingTopButton"\n        type="button"\n        onClick={scrollToTop}\n        aria-label="Volver al menú"\n        title="Volver al menú"\n        initial={{ opacity: 0, scale: 0.75, y: 12 }}\n        animate={{ opacity: 1, scale: 1, y: 0 }}\n        transition={{ duration: 0.35, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}\n      >\n        <ArrowUp size={17} strokeWidth={1.8} />\n      </motion.button>\n\n      <footer><Sparkles size={15}/><span>Valery Saray · Mis 15 años</span><Sparkles size={15}/></footer>
+      <motion.button\n        className="floatingTopButton"\n        type="button"\n        onClick={scrollToTop}\n        aria-label="Volver al menú"\n        title="Volver al menú"\n        initial={{ opacity: 0, scale: 0.75, y: 12 }}\n        animate={{ opacity: 1, scale: 1, y: 0 }}\n        transition={{ duration: 0.35, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}\n      >\n        <ArrowUp size={17} strokeWidth={1.8} />\n      </motion.button>\n\n      <footer><Sparkles size={15}/><span>{invitation.title}</span><Sparkles size={15}/></footer>
     </main>
   );
 }
