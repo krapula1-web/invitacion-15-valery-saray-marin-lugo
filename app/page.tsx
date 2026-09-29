@@ -406,18 +406,15 @@ export default function Home() {
         </Reveal>
       </section>
 
-      <motion.button
+      <button
         className="floatingTopButton"
         type="button"
         onClick={scrollToTop}
         aria-label="Subir al inicio"
         title="Subir al inicio"
-        initial={{ opacity: 0, scale: 0.75, y: 12 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        transition={{ duration: 0.35, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
       >
         <ArrowUp size={17} strokeWidth={2} /><span>Subir</span>
-      </motion.button>
+      </button>
 
       <footer><Sparkles size={15}/><span>{invitation.title}</span><Sparkles size={15}/></footer>
     </main>
