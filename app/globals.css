@@ -446,3 +446,10 @@ a{ -webkit-tap-highlight-color:transparent }
   .lightboxCard{min-height:72vh;padding:28px 22px}
   .lightboxNav button{flex:1}
 }
+
+
+/* visible back-to-top control */
+.floatingTopButton{width:auto;min-width:44px;height:44px;padding:0 14px;gap:6px;border-radius:999px;font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;}
+.floatingTopButton span{display:inline-block;}
+.floatingTopButton svg{flex:none;}
+@media(max-width:700px){.floatingTopButton{min-width:42px;height:42px;padding:0 12px;font-size:.56rem;}}
