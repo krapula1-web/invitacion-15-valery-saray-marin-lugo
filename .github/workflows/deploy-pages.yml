@@ -12,7 +12,7 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -28,8 +28,6 @@ jobs:
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
-        with:
-          enablement: true
 
       - name: Install dependencies
         run: npm install
@@ -38,6 +36,14 @@ jobs:
         run: npm run build
         env:
           GITHUB_ACTIONS: "true"
+
+      - name: Verify static output
+        run: |
+          test -f out/index.html
+          echo "Static index found:"
+          ls -lh out/index.html
+          echo "Generated files:"
+          find out -maxdepth 2 -type f | head -50
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
