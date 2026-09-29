@@ -84,9 +84,9 @@ export default function Home() {
   const [musicOn, setMusicOn] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [memory, setMemory] = useState("");
-  const [memories, setMemories] = useState<string[]>([]);
+  const [memories, setMemories] = useState<string[]>([]);\n  const [showTopButton, setShowTopButton] = useState(false);
   const { scrollYProgress } = useScroll();
-  const progress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+  const progress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });\n\n  useEffect(() => {\n    const onScroll = () => setShowTopButton(window.scrollY > 520);\n    onScroll();\n    window.addEventListener("scroll", onScroll, { passive: true });\n    return () => window.removeEventListener("scroll", onScroll);\n  }, []);\n\n  function scrollToTop() {\n    window.scrollTo({ top: 0, behavior: "smooth" });\n  }
 
   function handleRSVP(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -358,7 +358,7 @@ export default function Home() {
         </Reveal>
       </section>
 
-      <footer><Sparkles size={15}/><span>Valery Saray · Mis 15 años</span><Sparkles size={15}/></footer>
+      <motion.button\n        className={`floatingTopButton ${showTopButton ? "visible" : ""}`}\n        type="button"\n        onClick={scrollToTop}\n        aria-label="Volver al inicio"\n        title="Volver al inicio"\n        initial={{ opacity: 0, scale: 0.75, y: 12 }}\n        animate={{ opacity: showTopButton ? 1 : 0, scale: showTopButton ? 1 : 0.75, y: showTopButton ? 0 : 12 }}\n        transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}\n        style={{ pointerEvents: showTopButton ? "auto" : "none" }}\n      >\n        <ArrowUp size={17} strokeWidth={1.8} />\n      </motion.button>\n\n      <footer><Sparkles size={15}/><span>Valery Saray · Mis 15 años</span><Sparkles size={15}/></footer>
     </main>
   );
 }
