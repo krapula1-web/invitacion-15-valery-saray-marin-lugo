@@ -134,3 +134,126 @@ footer{display:flex;justify-content:center;align-items:center;gap:12px;padding:3
 @media(prefers-reduced-motion:reduce){
   .floatingPetal,.heroHalo,.vinyl{animation:none!important}.scrollHint{animation:none!important}.openButton,.confirmButton,.musicButton,.outlineButton,.detailCard,.photo{transition:none}
 }
+
+/* ultra-responsive polish */
+html{scroll-behavior:smooth}
+body{overflow-x:hidden}
+img,svg{max-width:100%}
+button,a,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{ -webkit-tap-highlight-color:transparent }
+@media (max-width:900px){
+  .section{padding-left:clamp(18px,5vw,42px);padding-right:clamp(18px,5vw,42px)}
+  .heroContent{width:min(92vw,700px)}
+  .navInner{padding-left:16px;padding-right:16px}
+  .letterCard{max-width:92vw}
+  .mapCard{max-width:94vw}
+}
+@media (max-width:700px){
+  .eyebrow{font-size:.56rem;letter-spacing:.18em;line-height:1.6}
+  .sectionHeading h2,.story h2,.dress h2,.gifts h2,.musicSection h2,.contact h2{font-size:clamp(2.15rem,9vw,3.1rem);line-height:.98}
+  .sectionLead{font-size:.76rem;line-height:1.75}
+  .hero{min-height:100svh;padding:22px 10px 54px}
+  .heroContent{padding:20px 10px;max-width:100%}
+  .hero h1{font-size:clamp(7rem,31vw,10rem)}
+  .name{font-size:clamp(2rem,10vw,2.7rem)}
+  .surname{font-size:.95rem;letter-spacing:.13em}
+  .heroDate{max-width:320px;font-size:.95rem!important;line-height:1.5}
+  .hero .openButton{margin-top:20px}
+  .scrollHint{bottom:12px}
+  .miniNav{overflow:hidden}
+  .navInner{gap:14px;padding-top:9px;padding-bottom:9px;scrollbar-width:none}
+  .navInner::-webkit-scrollbar{display:none}
+  .navInner>a{font-size:.57rem}
+  .navBrand{font-size:1.05rem!important}
+  .navMusic{width:29px;height:29px}
+  .story{padding-top:78px}
+  .letterCard{margin-top:32px;padding:35px 23px}
+  .letterCard:before{inset:7px}
+  .letterCard p:not(.letterKicker){font-size:1.04rem;line-height:1.58}
+  .signature{font-size:.9rem}
+  .signature strong{font-size:1.35rem}
+  .countdown{padding:78px 18px}
+  .timer{width:100%;max-width:420px}
+  .timer b{font-size:2rem}
+  .timer span{font-size:.5rem}
+  .details{margin-top:28px}
+  .detailCard{border-radius:21px}
+  .program .sectionLead{margin-bottom:5px}
+  .timeline{margin-top:30px}
+  .timelineItem{padding-bottom:23px}
+  .timelineItem strong{font-size:1.35rem}
+  .timelineItem small{font-size:.67rem}
+  .familyCard{padding:29px 20px}
+  .quoteBand{padding:82px 20px}
+  .quoteBand blockquote{font-size:clamp(1.9rem,8.5vw,2.7rem)}
+  .galleryGrid{grid-template-columns:1fr}
+  .photo,.photo:nth-child(2),.photo:nth-child(3){min-height:300px}
+  .mapCard{width:100%;margin-top:28px}
+  .mapArt{min-height:230px}
+  .mapInfo{padding:28px 22px}
+  .mapInfo h3{font-size:2.15rem}
+  .dress{padding-top:76px}
+  .dressBadge{font-size:.52rem;gap:7px;max-width:100%;text-align:center}
+  .musicSection{padding-top:78px}
+  .vinyl{width:145px;height:145px}
+  .giftCard{padding:24px 20px}
+  .rsvpForm{margin-top:28px}
+  .rsvpForm input,.rsvpForm select,.rsvpForm textarea,.memoryForm textarea{font-size:16px}
+  .confirmButton,.musicButton,.outlineButton{min-height:48px}
+  .memoryWall{margin-top:24px}
+  .contact .outlineButton{min-width:0;width:min(100%,280px)}
+  .closing{padding:100px 20px}
+  footer{font-size:.58rem;text-align:center}
+}
+@media (max-width:420px){
+  .section{padding-top:70px;padding-bottom:70px}
+  .openingCard{width:calc(100vw - 28px);padding:37px 16px 29px}
+  .openingCard h2{font-size:6.2rem}
+  .openingName{font-size:1.55rem}
+  .openingSurname{font-size:.62rem}
+  .openingCard small{font-size:.55rem;line-height:1.5}
+  .hero h1{font-size:clamp(6.3rem,29vw,8rem)}
+  .intro{font-size:1.6rem}
+  .years{font-size:1.4rem}
+  .name{font-size:1.9rem}
+  .surname{font-size:.82rem}
+  .timer{gap:7px}
+  .timer div{padding:15px 4px;border-radius:16px}
+  .timer b{font-size:1.75rem}
+  .timer span{font-size:.45rem}
+  .timelineItem{grid-template-columns:43px 1fr;gap:10px}
+  .timeline:before{left:20.5px}
+  .timelineItem>span{width:41px;height:41px;font-size:1rem}
+  .timelineItem strong{font-size:1.2rem}
+  .timelineItem small{font-size:.62rem}
+  .photo,.photo:nth-child(2),.photo:nth-child(3){min-height:255px}
+  .photoCaption{font-size:1.05rem;left:13px;right:13px}
+  .mapArt{min-height:205px}
+  .mapInfo{padding:24px 18px}
+  .mapInfo h3{font-size:1.9rem}
+  .dressBadge{padding:11px 13px}
+  .vinyl{width:125px;height:125px}
+  .vinylCenter{width:43px;height:43px}
+  .successMessage{padding:32px 18px}
+  .closing h2{font-size:2.3rem}
+}
+@media (max-width:340px){
+  .navInner{gap:11px}
+  .navInner>a{font-size:.51rem}
+  .navMusic{display:none}
+  .heroFrame{inset:2% 2%}
+  .hero h1{font-size:5.9rem}
+  .name{font-size:1.7rem}
+  .letterCard{padding:31px 18px}
+  .letterCard p:not(.letterKicker){font-size:.98rem}
+}
+@media (orientation:landscape) and (max-height:600px){
+  .hero{min-height:620px}
+  .openingCurtain{overflow-y:auto}
+  .openingCard{margin:30px auto}
+  .scrollHint{display:none}
+}
+@media (hover:none){
+  .detailCard:hover,.photo:hover,.openButton:hover,.confirmButton:hover,.musicButton:hover,.outlineButton:hover{transform:none;box-shadow:none}
+}
