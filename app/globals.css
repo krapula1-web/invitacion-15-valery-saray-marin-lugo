@@ -507,3 +507,131 @@ a{ -webkit-tap-highlight-color:transparent }
     padding-bottom:.16em;
   }
 }
+
+
+/* definitive mobile viewport + opening numeral correction */
+html, body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+.invitation,
+.section,
+.fullBleed {
+  width: 100%;
+  max-width: 100%;
+}
+.openingCurtain {
+  width: 100%;
+  min-width: 0;
+  min-height: 100dvh;
+  padding: clamp(14px, 3.5vw, 28px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+.openingCard {
+  width: min(470px, calc(100vw - 28px));
+  max-width: 100%;
+  max-height: calc(100dvh - 28px);
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  scrollbar-width: none;
+}
+.openingCard::-webkit-scrollbar { display:none; }
+.openingCard h2 {
+  font-size: clamp(6rem, 25vw, 8rem) !important;
+  line-height: 1.02 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  margin: 0 !important;
+  padding: 0 0 .14em !important;
+  overflow: visible !important;
+  transform: none !important;
+}
+.floatingTopButton {
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  position: fixed !important;
+  right: max(14px, env(safe-area-inset-right)) !important;
+  bottom: max(14px, env(safe-area-inset-bottom)) !important;
+  z-index: 2147483647 !important;
+  min-width: 78px !important;
+  width: auto !important;
+  height: 44px !important;
+  padding: 0 15px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 7px !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  color: #fff !important;
+  background: #302236 !important;
+  border: 1px solid rgba(255,255,255,.7) !important;
+  border-radius: 999px !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,.3) !important;
+  transform: translateZ(0) !important;
+}
+.floatingTopButton span,
+.floatingTopButton svg {
+  color: #fff !important;
+  display: block !important;
+}
+@media (max-width: 700px) {
+  .section {
+    width: 100%;
+    max-width: 100vw;
+    padding-left: clamp(16px, 5vw, 24px);
+    padding-right: clamp(16px, 5vw, 24px);
+  }
+  .fullBleed {
+    width: 100%;
+    max-width: 100vw;
+  }
+  .details,
+  .familyGrid,
+  .galleryGrid,
+  .memoryWall {
+    width: 100%;
+    max-width: 100%;
+  }
+  .detailCard,
+  .familyCard,
+  .photo,
+  .memoryCard,
+  .mapCard,
+  .letterCard {
+    max-width: 100%;
+    min-width: 0;
+  }
+  .mapCard {
+    width: 100%;
+  }
+  .openingCard {
+    width: min(470px, calc(100vw - 24px));
+    max-height: calc(100dvh - 24px);
+  }
+  .openingCard h2 {
+    font-size: clamp(5.8rem, 25vw, 7rem) !important;
+    line-height: 1.02 !important;
+    padding-bottom: .16em !important;
+  }
+  .floatingTopButton {
+    right: max(12px, env(safe-area-inset-right)) !important;
+    bottom: max(12px, env(safe-area-inset-bottom)) !important;
+    min-width: 74px !important;
+    height: 43px !important;
+  }
+}
+@media (max-width: 380px) {
+  .openingCard {
+    width: calc(100vw - 20px);
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+  .openingCard h2 {
+    font-size: clamp(5.5rem, 24vw, 6.3rem) !important;
+  }
+}
