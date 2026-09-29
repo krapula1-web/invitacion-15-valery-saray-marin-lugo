@@ -177,7 +177,7 @@ export default function Home() {
         {!submitted ? (
           <form className="rsvpForm" onSubmit={handleRSVP}>
             <label>Tu nombre<input name="name" placeholder="Escribe tu nombre" required /></label>
-            <label>¿Asistirás?"><select name="attendance" defaultValue="si"><option value="si">Sí, allí estaré</option><option value="no">No podré asistir</option></select></label>
+            <label>¿Asistirás?<select name="attendance" defaultValue="si"><option value="si">Sí, allí estaré</option><option value="no">No podré asistir</option></select></label>
             <label>Número de acompañantes<input name="guests" type="number" min="0" max="10" defaultValue="0" /></label>
             <label>Mensaje<textarea name="message" placeholder="Un mensaje para Valery (opcional)" rows={3} /></label>
             <button className="confirmButton" type="submit">Confirmar asistencia</button>
