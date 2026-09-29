@@ -2,11 +2,11 @@
 
 import type { FormEvent, ReactNode } from "react";
 import { useEffect, useState } from "react";
-import { motion, useScroll, useSpring } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
 import {
   CalendarDays, Camera, Check, CheckCircle2, ChevronDown, Clock3, Crown, Flower2,
   Gift, Heart, MapPin, MessageCircle, Music2, Navigation, Quote, Shirt, Sparkles,
-  Star, Users, WandSparkles, ArrowUp
+  Star, Users, WandSparkles, ArrowUp, Share2, Copy
 } from "lucide-react";
 
 const eventDate: string | null = null;
@@ -82,6 +82,7 @@ const gallery = [
 export default function Home() {
   const [opened, setOpened] = useState(false);
   const [musicOn, setMusicOn] = useState(false);
+  const [shared, setShared] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [memory, setMemory] = useState("");
   const [memories, setMemories] = useState<string[]>([]);
@@ -105,13 +106,15 @@ export default function Home() {
     <main className="invitation">
       <motion.div className="readingProgress" style={{ scaleX: progress }} />
 
+      <AnimatePresence>
       {!opened && (
-        <motion.div className="openingCurtain" initial={{ opacity: 1 }} animate={{ opacity: 1 }}>
-          <div className="curtainPanel curtainLeft" />
-          <div className="curtainPanel curtainRight" />
+        <motion.div className="openingCurtain" initial={{ opacity: 1 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.7 }}>
+          <motion.div className="curtainPanel curtainLeft" exit={{ x: "-100%", opacity: 0 }} transition={{ duration: 0.85, ease: [0.76, 0, 0.24, 1] }} />
+          <motion.div className="curtainPanel curtainRight" exit={{ x: "100%", opacity: 0 }} transition={{ duration: 0.85, ease: [0.76, 0, 0.24, 1] }} />
           <Petals count={24} />
           <motion.div
             className="openingCard"
+            exit={{ opacity: 0, scale: 0.94, y: -12, filter: "blur(5px)" }}
             initial={{ scale: 0.82, opacity: 0, y: 25 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
@@ -131,6 +134,7 @@ export default function Home() {
           </motion.div>
         </motion.div>
       )}
+      </AnimatePresence>
 
       <section className="hero" id="inicio">
         <Petals />
@@ -153,7 +157,12 @@ export default function Home() {
           <p className="name">Valery Saray</p>
           <p className="surname">Marín Lugo</p>
           <p className="heroDate">Una historia, un sueño y una noche para celebrar.</p>
-          <a className="openButton" href="#historia"><Sparkles size={17} /> Descubrir la invitación</a>
+          <div className="heroActions">
+            <a className="openButton" href="#historia"><Sparkles size={17} /> Descubrir la invitación</a>
+            <button className="openButton secondaryAction" type="button" onClick={shareInvitation}>
+              {shared ? <Check size={17} /> : <Share2 size={17} />} {shared ? "Enlace copiado" : "Compartir"}
+            </button>
+          </div>
         </motion.div>
         <motion.a href="#historia" className="scrollHint" aria-label="Continuar" animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 1.8 }}>
           <span>Descubre</span><ChevronDown size={19} />
@@ -164,6 +173,10 @@ export default function Home() {
         <div className="navInner">
           <a className="navBrand" href="#inicio">VS<span>15</span></a>
           {sections.map((s) => <a key={s.id} href={`#${s.id}`}>{s.label}</a>)}
+          <button className="navShare" onClick={shareInvitation} aria-label="Compartir invitación" title="Compartir invitación">
+            {shared ? <Check size={14} /> : <Share2 size={14} />}
+            <span>{shared ? "Copiado" : "Compartir"}</span>
+          </button>
           <button className={`navMusic ${musicOn ? "isOn" : ""}`} onClick={() => setMusicOn((v) => !v)} aria-label="Música">
             <Music2 size={15} /> <span>{musicOn ? "♫" : "♪"}</span>
           </button>
@@ -191,8 +204,9 @@ export default function Home() {
         <Reveal>
           <p className="eyebrow">Comienza la cuenta regresiva</p>
           <h2>El gran día se acerca</h2>
-          <p className="mutedCopy">Pronto podrás ver aquí cuánto falta para celebrar juntos.</p>
+          <p className="mutedCopy">Una cuenta regresiva viva para acompañar la ilusión hasta el gran día.</p>
           <Countdown />
+          <div className="countdownCaption"><span>PRÓXIMAMENTE</span><i>La fecha oficial activará el contador en tiempo real.</i></div>
           <div className="countdownFlourish"><span>✦</span><span>♡</span><span>✦</span></div>
         </Reveal>
       </section>
