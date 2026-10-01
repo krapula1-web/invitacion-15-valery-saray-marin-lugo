@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap');
 @import "tailwindcss";
 
-:root{--lavender:#c8a7d9;--lilac:#8f6a9d;--deep:#2c1f33;--cream:#fbf8f5;--white:#fffdfb;--muted:#766a79;--line:rgba(44,31,51,.12);--gold:#b18b62}
+:root{--lavender:#f3b7ca;--lilac:#c46b91;--deep:#4a2838;--cream:#fff8fb;--white:#fffdfb;--muted:#7d6871;--line:rgba(74,40,56,.12);--gold:#b18b62}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--cream);color:var(--deep);font-family:Montserrat,sans-serif}
@@ -635,3 +635,22 @@ html, body {
     font-size: clamp(5.5rem, 24vw, 6.3rem) !important;
   }
 }
+
+
+/* Pink quinceañera finishing palette */
+.hero{background:radial-gradient(circle at 50% 34%,rgba(243,183,202,.58),transparent 34%),linear-gradient(145deg,#fff0f5,#fffafc 55%,#f5d7e3)}
+.hero h1{background:linear-gradient(145deg,#8f3f61,#d07c9e 48%,#a84f74);-webkit-background-clip:text;color:transparent}
+.countdown{background:linear-gradient(145deg,#f9e0e9,#fffafc 55%,#f7e1e8)}
+.family{background:linear-gradient(145deg,#fffafb,#f8e0ea)}
+.location{background:#fff0f5}
+.dress{background:linear-gradient(145deg,#f9dfe8,#fff8fb 58%,#f6d2df)}
+.dressBadge{border-color:rgba(201,104,142,.28);background:rgba(255,255,255,.72);color:#8f3f61;box-shadow:0 10px 28px rgba(143,63,97,.08)}
+.dressNotice{max-width:650px;margin:18px auto 0;padding:16px 20px;border:1px solid rgba(201,104,142,.22);border-radius:18px;background:rgba(255,255,255,.58);color:#8f3f61;font-family:"Cormorant Garamond",serif;font-size:1.08rem;line-height:1.55}
+.dressNotice::before{content:"♥";display:block;font-family:Montserrat,sans-serif;font-size:.75rem;margin-bottom:5px;color:#c9688e}
+.iconBubble{background:#f9e1e9;color:#c9688e}
+.timelineItem>span{background:#f9e1e9}
+.mapArt{background:#f0d4df;color:#c9688e}
+.quoteBand{background:linear-gradient(135deg,#4a2838,#6a344d 52%,#3b202d)}
+.closing{background:radial-gradient(circle at 50% 40%,#7d3c59,#4a2838 62%)}
+footer{background:#4a2838}
+@media(max-width:700px){.dressNotice{font-size:1rem;padding:14px 15px}}
