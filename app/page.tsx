@@ -308,6 +308,7 @@ export default function Home() {
           <h2>Una noche para vestir de gala</h2>
           <p className="sectionLead">El dress code definitivo aparecerá aquí. Queremos que todos disfruten la noche con elegancia y comodidad.</p>
           <div className="dressBadge"><span>✦</span> {invitation.dressCode} <span>✦</span></div>
+          <p className="dressNotice">{invitation.dressNotice}</p>
         </Reveal>
       </section>
 
