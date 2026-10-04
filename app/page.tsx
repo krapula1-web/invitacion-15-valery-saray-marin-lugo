@@ -261,11 +261,15 @@ export default function Home() {
           <p className="eyebrow">Con amor y gratitud</p>
           <h2>Las personas que hacen posible este sueño</h2>
           <p className="sectionLead familyLead">Hay personas que sostienen nuestros sueños, nos acompañan en cada paso y hacen que un día especial sea todavía más memorable.</p>
-          <div className="familyGrid">
-            <article className="familyCard"><Users size={21}/><span>Mis padres</span><h3>Nombre de mamá</h3><h3>Nombre de papá</h3><small>Gracias por hacer posible este sueño y acompañarme siempre.</small></article>
-            <article className="familyCard"><Heart size={21}/><span>Mis padrinos</span><h3>Nombre de madrina</h3><h3>Nombre de padrino</h3><small>Gracias por caminar conmigo y ser parte de esta historia.</small></article>
+          <div className="familyGrid familyGridSingle">
+            <article className="familyCard">
+              <Users size={21}/>
+              <span>Mis padres</span>
+              <h3>Fabián Arley Marín</h3>
+              <h3>Edith Lugo</h3>
+              <small>Gracias por hacer posible este sueño y acompañarme siempre.</small>
+            </article>
           </div>
-          <p className="placeholderNote">Los nombres y datos serán reemplazados por la información definitiva.</p>
         </Reveal>
       </section>
 
