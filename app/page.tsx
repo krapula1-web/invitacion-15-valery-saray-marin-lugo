@@ -153,8 +153,7 @@ export default function Home() {
       "DESCRIPTION:Celebración de los 15 años de Valery Saray Marín Lugo.",
       "END:VEVENT",
       "END:VCALENDAR",
-    ].join("\r
-");
+    ].join("\\r\\n");
     const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
