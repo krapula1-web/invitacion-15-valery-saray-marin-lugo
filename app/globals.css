@@ -703,3 +703,23 @@ footer{background:#4a2838}
 @media(prefers-reduced-motion:reduce){
   .chapterRail,.heroContent{transition:none!important}
 }
+
+/* careful opening polish */
+.openingCurtain{background:radial-gradient(circle at 50% 35%,rgba(255,255,255,.5),transparent 28%),linear-gradient(145deg,#f8d9e4,#efb4ca 48%,#f6d1df)}
+.curtainPanel{background:radial-gradient(circle at 50% 35%,rgba(255,255,255,.32),transparent 34%),linear-gradient(105deg,#e3a0b8,#c9688e 50%,#e3a0b8);box-shadow:inset 0 0 70px rgba(120,45,78,.14)}
+.openingCard{border-color:rgba(201,104,142,.22);box-shadow:0 35px 100px rgba(143,63,97,.18)}
+.openingCard h2{color:#8f3f61;text-shadow:0 8px 28px rgba(201,104,142,.16)}
+.primaryButton{background:#b85d80!important;border-color:#b85d80!important;box-shadow:0 14px 35px rgba(143,63,97,.18)}
+@media(max-width:520px){
+  .openingCurtain{padding:14px}
+  .openingCard{width:min(430px,100%);padding:34px 20px 25px;border-radius:28px;max-height:calc(100dvh - 28px);overflow:auto}
+  .openingCard h2{font-size:6.6rem;line-height:.78}
+  .openingName{font-size:2rem}
+  .openingIntro{font-size:1.6rem;margin:16px 0 -10px}
+  .seal{width:50px;height:50px;margin-bottom:17px}
+  .openingRule{margin:15px 0}
+  .openingCard small{margin-top:12px}
+}
+@media(prefers-reduced-motion:reduce){
+  .openingCard *{animation:none!important;transition:none!important}
+}
