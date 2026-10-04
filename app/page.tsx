@@ -43,7 +43,15 @@ function Petals({ count = 20 }: { count?: number }) {
   );
 }
 
-function FallingStars({ count = 18 }: { count?: number }) {\n  return (\n    <div className="fallingStarField" aria-hidden="true">\n      {Array.from({ length: count }, (_, i) => <span key={i} className={`fallingStar star-${(i % 18) + 1}`} />)}\n    </div>\n  );\n}\n\nfunction Countdown() {
+function FallingStars({ count = 18 }: { count?: number }) {
+  return (
+    <div className="fallingStarField" aria-hidden="true">
+      {Array.from({ length: count }, (_, i) => <span key={i} className={`fallingStar star-${(i % 18) + 1}`} />)}
+    </div>
+  );
+}
+
+function Countdown() {
   const [remaining, setRemaining] = useState<number | null>(null);
   useEffect(() => {
     if (!eventDate) return;
@@ -145,7 +153,8 @@ export default function Home() {
       "DESCRIPTION:Celebración de los 15 años de Valery Saray Marín Lugo.",
       "END:VEVENT",
       "END:VCALENDAR",
-    ].join("\r\n");
+    ].join("\r
+");
     const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
