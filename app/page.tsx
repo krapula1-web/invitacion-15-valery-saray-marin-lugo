@@ -431,7 +431,17 @@ export default function Home() {
             </form>
           ) : (
             <motion.div className="successMessage" initial={{ scale: .94, opacity: 0 }} animate={{ scale: 1, opacity: 1 }}>
-              <CheckCircle2 size={38}/><h3>¡Gracias por confirmar!</h3><p>Tu respuesta quedó registrada en esta experiencia. Más adelante la conectaremos con Supabase para guardarla de forma permanente.</p><button className="outlineButton" type="button" onClick={() => setSubmitted(false)}>Editar respuesta</button>
+              <CheckCircle2 size={38}/>
+              <h3>{rsvpAttendance === "si" ? "¡Te esperamos, " + rsvpName + "!" : "Gracias por avisarnos, " + rsvpName + "."}</h3>
+              <p>{rsvpAttendance === "si" ? `Tu pase está preparado para esta experiencia. Invitados: ${Number(rsvpGuests) + 1}.` : "Sentiremos mucho que no puedas acompañarnos, pero gracias por confirmarlo."}</p>
+              {rsvpAttendance === "si" && (
+                <div className="digitalPass">
+                  <div className="passTop"><span>VALERY SARAY</span><b>15</b></div>
+                  <div className="passBody"><div className="passCode">VS15</div><div><small>PASE DIGITAL</small><strong>{rsvpName}</strong><span>17 ABRIL · 7:00 P. M.</span></div></div>
+                  <div className="passFoot"><span>RECREACAFÉ · IBAGUÉ</span><i>✦</i></div>
+                </div>
+              )}
+              <button className="outlineButton" type="button" onClick={() => setSubmitted(false)}>Editar respuesta</button>
             </motion.div>
           )}
         </Reveal>
