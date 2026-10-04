@@ -192,18 +192,18 @@ export default function Home() {
             animate={{ scale: 1, opacity: 1, y: 0 }}
             transition={{ duration: 1.05, ease: [0.22, 1, 0.36, 1] }}
           >
-            <div className="openingTopLine"><span /><span /><span /></div>
-            <span className="seal"><Crown size={24} /></span>
-            <p className="eyebrow">Una invitación muy especial</p>
-            <p className="openingIntro">Mis</p>
-            <h2>15</h2>
-            <span className="openingName">Valery Saray</span>
-            <span className="openingSurname">Marín Lugo</span>
-            <div className="openingRule"><span>✦</span><span>♡</span><span>✦</span></div>
-            <button className="openButton primaryButton" onClick={() => setOpened(true)}>
+            <motion.div className="openingTopLine" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: .25, duration: .6 }}><span /><span /><span /></motion.div>
+            <motion.span className="seal" initial={{ opacity: 0, scale: .65, rotate: -12 }} animate={{ opacity: 1, scale: 1, rotate: 0 }} transition={{ delay: .45, duration: .8, ease: [0.22, 1, 0.36, 1] }}><Crown size={24} /></motion.span>
+            <motion.p className="eyebrow" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .65, duration: .6 }}>Una invitación muy especial</motion.p>
+            <motion.p className="openingIntro" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: .8, duration: .6 }}>Mis</motion.p>
+            <motion.h2 initial={{ opacity: 0, y: 18, scale: .9 }} animate={{ opacity: 1, y: 0, scale: 1 }} transition={{ delay: .95, duration: .85, ease: [0.22, 1, 0.36, 1] }}>15</motion.h2>
+            <motion.span className="openingName" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.12, duration: .6 }}>Valery Saray</motion.span>
+            <motion.span className="openingSurname" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.3, duration: .7 }}>Marín Lugo</motion.span>
+            <motion.div className="openingRule" initial={{ opacity: 0, scaleX: .5 }} animate={{ opacity: 1, scaleX: 1 }} transition={{ delay: 1.45, duration: .7 }}><span>✦</span><span>♡</span><span>✦</span></motion.div>
+            <motion.button className="openButton primaryButton" initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.65, duration: .65 }} onClick={() => setOpened(true)}>
               <Sparkles size={17} /> Abrir mi invitación
-            </button>
-            <small>Una experiencia creada para celebrar un momento inolvidable</small>
+            </motion.button>
+            <motion.small initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.9, duration: .7 }}>Una experiencia creada para celebrar un momento inolvidable</motion.small>
           </motion.div>
         </motion.div>
       )}
