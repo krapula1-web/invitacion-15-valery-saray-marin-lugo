@@ -654,3 +654,7 @@ html, body {
 .closing{background:radial-gradient(circle at 50% 40%,#7d3c59,#4a2838 62%)}
 footer{background:#4a2838}
 @media(max-width:700px){.dressNotice{font-size:1rem;padding:14px 15px}}
+
+/* Ajuste final de la cifra 15 y tarjeta familiar */
+.hero h1{line-height:.82!important;height:auto!important;min-height:1.05em!important;overflow:visible!important;padding:0 .04em .08em!important;transform:none!important}
+.familyGridSingle{grid-template-columns:minmax(0,520px)!important;justify-content:center!important}
