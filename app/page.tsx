@@ -43,7 +43,7 @@ function Petals({ count = 20 }: { count?: number }) {
   );
 }
 
-function Countdown() {
+function FallingStars({ count = 18 }: { count?: number }) {\n  return (\n    <div className="fallingStarField" aria-hidden="true">\n      {Array.from({ length: count }, (_, i) => <span key={i} className={`fallingStar star-${(i % 18) + 1}`} />)}\n    </div>\n  );\n}\n\nfunction Countdown() {
   const [remaining, setRemaining] = useState<number | null>(null);
   useEffect(() => {
     if (!eventDate) return;
@@ -211,6 +211,7 @@ export default function Home() {
 
       <section className="hero" id="inicio">
         <Petals />
+        <FallingStars count={18} />
         <div className="heroOrnament ornamentA" />
         <div className="heroOrnament ornamentB" />
         <div className="heroHalo" />
