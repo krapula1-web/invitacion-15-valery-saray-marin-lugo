@@ -21,8 +21,8 @@ a{text-decoration:none;color:inherit}
 .placeholderNote{font-size:.65rem;color:var(--muted);margin-top:25px}
 
 /* opening */
-.openingCurtain{position:fixed;inset:0;z-index:120;display:grid;place-items:center;background:#4a2838;padding:24px;overflow:hidden}
-.curtainPanel{position:absolute;top:0;bottom:0;width:51%;background:radial-gradient(circle at 50% 35%,rgba(255,255,255,.08),transparent 35%),linear-gradient(105deg,#351d29,#65344a 50%,#351d29);box-shadow:inset 0 0 70px rgba(0,0,0,.25)}
+.openingCurtain{position:fixed;inset:0;z-index:120;display:grid;place-items:center;background:#f3c1d3;padding:24px;overflow:hidden}
+.curtainPanel{position:absolute;top:0;bottom:0;width:51%;background:radial-gradient(circle at 50% 35%,rgba(255,255,255,.28),transparent 35%),linear-gradient(105deg,#d98cab,#b85d80 50%,#d98cab);box-shadow:inset 0 0 70px rgba(120,45,78,.18)}
 .curtainLeft{left:0;border-right:1px solid rgba(255,255,255,.08)}
 .curtainRight{right:0;border-left:1px solid rgba(255,255,255,.08)}
 .openingCurtain:after{content:"";position:absolute;inset:8%;border:1px solid rgba(255,255,255,.13);border-radius:34px;pointer-events:none}
@@ -472,7 +472,7 @@ a{ -webkit-tap-highlight-color:transparent }
   border:1px solid rgba(255,255,255,.65) !important;
   border-radius:999px !important;
   color:#fff !important;
-  background:rgba(48,34,54,.96) !important;
+  background:#8f3f61 !important;
   box-shadow:0 10px 32px rgba(0,0,0,.28),0 0 0 1px rgba(201,104,142,.2) !important;
   opacity:1 !important;
   visibility:visible !important;
@@ -568,7 +568,7 @@ html, body {
   visibility: visible !important;
   pointer-events: auto !important;
   color: #fff !important;
-  background: #4a2838 !important;
+  background: #8f3f61 !important;
   border: 1px solid rgba(255,255,255,.7) !important;
   border-radius: 999px !important;
   box-shadow: 0 10px 30px rgba(0,0,0,.3) !important;
