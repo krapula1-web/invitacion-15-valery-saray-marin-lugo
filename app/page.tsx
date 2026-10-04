@@ -3,9 +3,9 @@
 import type { FormEvent, ReactNode } from "react";
 import invitation from "./invitation-data";
 import { useEffect, useState } from "react";
-import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
+import { AnimatePresence, motion, useScroll, useSpring, useTransform } from "framer-motion";
 import {
-  CalendarDays, Camera, Check, CheckCircle2, ChevronDown, Clock3, Crown, Flower2,
+  CalendarDays, CalendarPlus, Camera, Check, CheckCircle2, ChevronDown, Clock3, Crown, Flower2,
   Gift, Heart, MapPin, MessageCircle, Music2, Navigation, Quote, Shirt, Sparkles,
   Star, Users, WandSparkles, ArrowUp, Share2
 } from "lucide-react";
@@ -83,8 +83,31 @@ export default function Home() {
   const [memory, setMemory] = useState("");
   const [memories, setMemories] = useState<string[]>([]);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [activeSection, setActiveSection] = useState("historia");
+  const [rsvpName, setRsvpName] = useState("");
+  const [rsvpGuests, setRsvpGuests] = useState("0");
+  const [rsvpAttendance, setRsvpAttendance] = useState("si");
   const { scrollYProgress } = useScroll();
   const progress = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+  const heroY = useTransform(scrollYProgress, [0, 0.28], [0, 70]);
+  const heroScale = useTransform(scrollYProgress, [0, 0.28], [1, 0.94]);
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.24], [1, 0.18]);
+
+  useEffect(() => {
+    const elements = sections
+      .map((section) => document.getElementById(section.id))
+      .filter(Boolean) as HTMLElement[];
+    if (!elements.length) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]?.target.id) setActiveSection(visible[0].target.id);
+      },
+      { rootMargin: "-18% 0px -62% 0px", threshold: [0.08, 0.2, 0.5] }
+    );
+    elements.forEach((element) => observer.observe(element));
+    return () => observer.disconnect();
+  }, []);
 
   function scrollToTop() {
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -106,8 +129,41 @@ export default function Home() {
     }).catch(() => undefined);
   }
 
+  function addToCalendar() {
+    const ics = [
+      "BEGIN:VCALENDAR",
+      "VERSION:2.0",
+      "PRODID:-//Valery Saray//Mis 15 anos//ES",
+      "CALSCALE:GREGORIAN",
+      "BEGIN:VEVENT",
+      "UID:valery-saray-15-2027@invitacion",
+      "DTSTAMP:20261004T000000Z",
+      "DTSTART:20270417T190000",
+      "DTEND:20270417T230000",
+      "SUMMARY:Mis 15 años · Valery Saray",
+      "LOCATION:Recreacafé, Vía Picaleña · Kilómetro 4, Ibagué, Tolima",
+      "DESCRIPTION:Celebración de los 15 años de Valery Saray Marín Lugo.",
+      "END:VEVENT",
+      "END:VCALENDAR",
+    ].join("\r\n");
+    const blob = new Blob([ics], { type: "text/calendar;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "valery-saray-15.ics";
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    URL.revokeObjectURL(url);
+  }
+
   function handleRSVP(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    setRsvpName(String(data.get("name") || ""));
+    setRsvpGuests(String(data.get("guests") || "0"));
+    setRsvpAttendance(String(data.get("attendance") || "si"));
     setSubmitted(true);
   }
 
@@ -162,6 +218,7 @@ export default function Home() {
         <div className="heroStars" aria-hidden="true"><Star /><Star /><Star /><Star /></div>
         <motion.div
           className="heroContent"
+          style={{ y: heroY, scale: heroScale, opacity: heroOpacity }}
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.1, delay: opened ? 0.12 : 0.35 }}
@@ -179,6 +236,9 @@ export default function Home() {
             <button className="openButton secondaryAction" type="button" onClick={shareInvitation}>
               {shared ? <Check size={17} /> : <Share2 size={17} />} {shared ? "Enlace copiado" : "Compartir"}
             </button>
+          </div>
+          <div className="heroMeta" aria-label="Resumen del evento">
+            <span><b>17</b> ABRIL 2027</span><i>·</i><span><b>7:00</b> P. M.</span><i>·</i><span>RECREACAFÉ</span>
           </div>
         </motion.div>
         <motion.a href="#historia" className="scrollHint" aria-label="Continuar" animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 1.8 }}>
@@ -199,6 +259,15 @@ export default function Home() {
           </button>
         </div>
       </nav>
+
+      <aside className="chapterRail" aria-label="Progreso de la invitación">
+        <span className="chapterRailTitle">LA NOCHE DE VALERY</span>
+        {sections.map((section, index) => (
+          <a key={section.id} className={activeSection === section.id ? "isActive" : ""} href={`#${section.id}`} aria-label={`Ir a ${section.label}`}>
+            <b>0{index + 1}</b><span>{section.label}</span>
+          </a>
+        ))}
+      </aside>
 
       <section className="story section" id="historia">
         <Reveal>
@@ -236,6 +305,10 @@ export default function Home() {
             <article className="detailCard"><div className="iconBubble"><CalendarDays size={22}/></div><span>Fecha</span><strong>{invitation.eventDateLabel}</strong><small>Reserva la fecha</small></article>
             <article className="detailCard"><div className="iconBubble"><Clock3 size={22}/></div><span>Hora</span><strong>{invitation.eventTimeLabel}</strong><small>Te esperamos</small></article>
             <article className="detailCard"><div className="iconBubble"><MapPin size={22}/></div><span>Lugar</span><strong>{invitation.venueName}</strong><small>Ubicación del evento</small></article>
+          </div>
+          <div className="eventTools">
+            <button className="outlineButton" type="button" onClick={addToCalendar}><CalendarPlus size={16}/> Agendar la fecha</button>
+            <a className="outlineButton" href={invitation.mapsUrl} target="_blank" rel="noreferrer"><Navigation size={16}/> Abrir ubicación</a>
           </div>
         </Reveal>
       </section>
@@ -299,8 +372,16 @@ export default function Home() {
         <Reveal>
           <div className="sectionHeading"><span>Te esperamos</span><h2>¿Dónde será?</h2></div>
           <div className="mapCard">
-            <div className="mapArt"><div className="mapGrid" /><MapPin size={42}/><span>Ubicación próximamente</span></div>
-            <div className="mapInfo"><p className="eyebrow">El lugar de la celebración</p><h3>{invitation.venueName}</h3><p>{invitation.venueDescription}</p><button className="outlineButton" type="button" disabled={!invitation.mapsUrl} onClick={() => invitation.mapsUrl && window.open(invitation.mapsUrl, "_blank", "noopener,noreferrer")}><Navigation size={16}/> {invitation.mapsUrl ? "Cómo llegar" : "Mapa próximamente"}</button></div>
+            <div className="mapArt"><div className="mapGrid" /><MapPin size={42}/><span>Vía Picaleña · Kilómetro 4</span><small>Ibagué · Tolima</small></div>
+            <div className="mapInfo">
+              <p className="eyebrow">El lugar de la celebración</p>
+              <h3>{invitation.venueName}</h3>
+              <p>{invitation.venueDescription}</p>
+              <div className="routeButtons">
+                <a className="outlineButton" href={invitation.mapsUrl} target="_blank" rel="noreferrer"><Navigation size={16}/> Google Maps</a>
+                <a className="outlineButton" href="https://www.waze.com/ul?q=Recreacaf%C3%A9%20V%C3%ADa%20Picale%C3%B1a%20Kil%C3%B3metro%204%20Ibagu%C3%A9%20Tolima&navigate=yes" target="_blank" rel="noreferrer"><Navigation size={16}/> Waze</a>
+              </div>
+            </div>
           </div>
         </Reveal>
       </section>
